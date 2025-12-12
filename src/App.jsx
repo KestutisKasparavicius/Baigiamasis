@@ -1,34 +1,29 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Main from './pages/Main'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Posts from './pages/Posts'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [route, setRoute] = useState('main')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ maxWidth: 900, margin: '24px auto', padding: '0 12px' }}>
+      <header style={{ display: 'flex', gap: 12, marginBottom: 18 }}>
+        <button onClick={() => setRoute('main')}>Pagrindinis</button>
+        <button onClick={() => setRoute('posts')}>Postai</button>
+        <button onClick={() => setRoute('login')}>Prisijungti</button>
+        <button onClick={() => setRoute('register')}>Registracija</button>
+      </header>
+
+      <main>
+        {route === 'main' && <Main />}
+        {route === 'posts' && <Posts />}
+        {route === 'login' && <Login onSuccess={() => setRoute('main')} />}
+        {route === 'register' && <Register onSuccess={() => setRoute('login')} />}
+      </main>
+    </div>
   )
 }
 
